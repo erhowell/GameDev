@@ -44,7 +44,7 @@ function render(event){
 }
 
 function submitClicked()
-{
+{ // adds user event to all events
     console.log('submitClicked');
     let eventName = document.getElementById("inputEvent").value;
     let interval = document.getElementById("inputInterval").value;
