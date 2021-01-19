@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="index.css" rel="stylesheet" >
+    <title>Assignment 1</title>
+  </head>
+  <body>
+    <div class="wrapper mx-auto my-5" style="width: 65%;">
+        <div class="container px-4">
+            <div class="row gx-5" id="top-title">
+                <div class="col-12">
+                    <h1 class="text-center">Browswer Game Loop</h1>
+                </div>
+            </div>
+            <div class="row gx-5">
+                <div class="col-7 border border-dark  p-2" >
+                    <p id="outputText"></p>
+                </div>
+                <div class="col-5 border border-dark p-2" >
+                    <div class="my-1 row">
+                        <label for="inputEvent" class="col-sm-6 col-form-label">Name:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputEvent" >
+                        </div>
+                    </div>
+                    <div class="my-1 row">
+                        <label for="inputInterval" class="col-sm-6 col-form-label">Interval</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="inputInterval">
+                        </div>
+                    </div>
+                    <div class="my-1 row">
+                        <label for="inputTimes" class="col-sm-6 col-form-label"># of times</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="inputTimes">
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex flex-row-reverse">
+                        <button onsubmit="gameLoop(this)" type="submit" class="btn btn-primary mb-3">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-5" id="bottom-title">
+                <h3 class="text-center">Created for class 5410</h3>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+  </body>
+</html>
