@@ -1,11 +1,13 @@
 
 let allEvents = [];
+
 class UserEvent {
     constructor(name, interval, times) {
       this.name = name;
       this.interval = interval;
       this.times = times;
       this.lastActive = 0;
+      this.timebetween =0;
     }
     update(currentTime){
         this.timebetween = currentTime - this.lastActive;
@@ -23,42 +25,48 @@ class UserEvent {
 
   function update(time){ 
       // accepts the elapsed time as a parameter.  It is in the update function where any active events are updated.
-        allEvents = allEvents.map(x => {x.update(time); return x;})
-                    .sort((e1,e2) => {return e2.timebetween- e1.timebetween;});
-        
-        allEvents.forEach(e => {
-            if(e.lastActive == time)
-            {
-                render(e);
-            }
-        });
-        allEvents = allEvents.filter(a => a.times > 0);
+        allEvents = allEvents.filter(a => a.times != 0) // filters old events
+                    .map(x => {x.update(time); return x;}) // updates events
     }
 
 function render(event){
     // It is in the render function where any events that need reporting are displayed.
-    
-    let node = document.getElementById("outputText")
-    node.innerHTML = event.textOutput() + node.innerHTML;
-    node.scrollTop = node.scrollHeight;
+    let node = document.getElementById("outputText"); //gets node
+    node.innerHTML = event.textOutput() + node.innerHTML; //updates node
+    node.scrollTop = 0;// scrolls to top
 }
 
 function submitClicked()
 { // adds user event to all events
-    console.log('submitClicked');
+
+    //gets inputs
     let eventName = document.getElementById("inputEvent").value;
     let interval = document.getElementById("inputInterval").value;
     let times = document.getElementById("inputTimes").value;
     
+
+    //clears inputs
+    document.getElementById("inputEvent").value = "";
+    document.getElementById("inputInterval").value = null;
+    document.getElementById("inputTimes").value = null;
+
     allEvents.push(new UserEvent(eventName, interval, times));
-    
 }
+
 function gameLoop () {
-     // in which you update the elapsed time since the last time the function was called
+     // update the elapsed time since the last time the function was called
+     //render items needed to be rendered
         if(allEvents.length > 0)
         {
-            update(performance.now());
+            let time = performance.now();
+            update(time);//updates events
+
+            allEvents.filter( e => e.lastActive == time) // updates ui
+                .forEach(e=> {
+                    render(e);
+                });
         }
-    window.requestAnimationFrame(gameLoop);
+    window.requestAnimationFrame(gameLoop);// updates time
 }
+
 window.requestAnimationFrame(gameLoop);
