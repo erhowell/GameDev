@@ -4,3 +4,12 @@
 #bottom-title{
     background-color: darkkhaki;
 }
+#outputText{
+    height: 30vh;
+    overflow-y:auto;
+}
+
+#wrapper
+{
+    width: 65%;
+}
