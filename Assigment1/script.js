@@ -49,8 +49,11 @@ function submitClicked()
     document.getElementById("inputEvent").value = "";
     document.getElementById("inputInterval").value = null;
     document.getElementById("inputTimes").value = null;
-
-    allEvents.push(new UserEvent(eventName, interval, times));
+    
+    let ev = new UserEvent(eventName, interval, times);
+    ev.update(performance.now());
+    render(ev);
+    allEvents.push(ev);
 }
 
 function gameLoop () {
@@ -64,6 +67,7 @@ function gameLoop () {
             allEvents.filter( e => e.lastActive == time) // updates ui
                 .forEach(e=> {
                     render(e);
+                    console.log("Event:"+ e.name+":"+ e.timebetween);
                 });
         }
     window.requestAnimationFrame(gameLoop);// updates time
