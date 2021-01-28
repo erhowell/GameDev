@@ -4,15 +4,18 @@ let allEvents = [];
 class UserEvent {
     constructor(name, interval, times) {
       this.name = name;
-      this.interval = interval;
-      this.times = times;
+      this.interval = parseFloat(interval);
+      this.times = parseInt(times);
       this.lastActive = 0;
-      this.timebetween =0;
+      this.draw = false;
     }
     update(currentTime){
-        this.timebetween = currentTime - this.lastActive;
-        if((this.lastActive == 0) || (this.timebetween >= this.interval)){
-            this.lastActive = currentTime;
+        this.draw = false;
+        let timeEllapsed = currentTime - this.lastActive;
+        console.log("time ellapsed:" + timeEllapsed + "\nlast active: "+ this.lastActive);
+        if((this.lastActive == 0) || (timeEllapsed >= this.interval)){
+            this.lastActive = (this.lastActive == 0) ?  currentTime : this.lastActive+this.interval;
+            this.draw = true;
             this.times -= 1;
         }
     }
@@ -50,10 +53,8 @@ function submitClicked()
     document.getElementById("inputInterval").value = null;
     document.getElementById("inputTimes").value = null;
     
-    let ev = new UserEvent(eventName, interval, times);
-    ev.update(performance.now());
-    render(ev);
-    allEvents.push(ev);
+    allEvents.push(new UserEvent(eventName, interval, times));
+    gameLoop();
 }
 
 function gameLoop () {
@@ -64,13 +65,12 @@ function gameLoop () {
             let time = performance.now();
             update(time);//updates events
 
-            allEvents.filter( e => e.lastActive == time) // updates ui
+            allEvents.filter( e => e.draw) // updates ui
                 .forEach(e=> {
                     render(e);
-                    console.log("Event:"+ e.name+":"+ e.timebetween);
                 });
         }
     window.requestAnimationFrame(gameLoop);// updates time
 }
 
-window.requestAnimationFrame(gameLoop);
+
